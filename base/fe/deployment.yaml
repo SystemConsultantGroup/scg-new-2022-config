@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fe-deployment
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: fe
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: fe
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - image: harbor.k8s.scg.skku.ac.kr/library/nginx
+          imagePullPolicy: Always
+          name: fe
+          ports:
+            - containerPort: 3000
